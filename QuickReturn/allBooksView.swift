@@ -30,9 +30,11 @@ class allBooksView: UIViewController,UITableViewDelegate,UITableViewDataSource {
         let cell:booksCell = allBookTableView.dequeueReusableCell(withIdentifier: "booksCell" ,for: indexPath) as! booksCell
         cell.nameBookLabel.text! = books[indexPath.row].name
         cell.authorOfBook.text! = books[indexPath.row].author
-        cell.availableButtonAsLabel.titleLabel?.text = "9/10"
-        cell.pagesLabel.text! = "Pg.1000"
-        cell.descriptionLabel.text! = "Condtions : " + books[indexPath.row].description
+        let availabelBooks = String(books[indexPath.row].available)
+        let totalBooks = String(books[indexPath.row].total)
+        cell.availableButtonAsLabel.titleLabel?.text = "\(availabelBooks)/\(totalBooks)"
+        cell.pagesLabel.text! = "Pg. \(books[indexPath.row].pages)"
+        cell.descriptionLabel.text! = "Description : " + books[indexPath.row].description
         return cell
     }
     override func viewDidAppear(_ animated: Bool) {

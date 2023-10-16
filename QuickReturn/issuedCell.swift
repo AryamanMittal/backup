@@ -31,6 +31,9 @@ class issuedCell: UITableViewCell {
     
     @IBAction func returnAction(_ sender: Any) {
         print("return pressed")
+        returnBook()
+    }
+    func returnBook(){
         let bookid = issCon!.allbook[(indexPth!.row)].bookID
         print(bookid)
         //let bookid:String = currBook.id
@@ -53,6 +56,9 @@ class issuedCell: UITableViewCell {
                     
                 }
                         }
+                        else{
+                            self.returnBook()
+                        }
                         
                     }
                     catch{
@@ -60,8 +66,6 @@ class issuedCell: UITableViewCell {
                     }
                 }
             }
-        
-        
     }
     
     @IBAction func reissueAction(_ sender: Any) {
@@ -89,9 +93,6 @@ class issuedCell: UITableViewCell {
                         }
 
                     }
-                    
-                    
-                    
                 }
                 catch{
                     print("json serializagtion error")

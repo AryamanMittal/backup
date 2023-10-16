@@ -44,10 +44,13 @@
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
-                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckW-Kg-UsJ">
-                        <rect key="frame" x="236" y="64.333333333333329" width="94" height="35"/>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckW-Kg-UsJ">
+                        <rect key="frame" x="250" y="64.333333333333329" width="80" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="6yN-kq-3OK"/>
+                        </constraints>
                         <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="filled" image="book" catalog="system" title="13/31">
+                        <buttonConfiguration key="configuration" style="filled" image="book" catalog="system" title="0/2">
                             <color key="baseBackgroundColor" red="0.92941176889999999" green="0.43921568989999998" blue="0.4196078479" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </buttonConfiguration>
                     </button>
@@ -65,6 +68,15 @@
                     <constraint firstItem="uwa-8H-wvg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="qgC-aD-GcH"/>
                     <constraint firstItem="vDr-bc-haJ" firstAttribute="leading" secondItem="uwa-8H-wvg" secondAttribute="leading" id="rdg-ra-l8l"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                        <integer key="value" value="15"/>
+                    </userDefinedRuntimeAttribute>
+                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBound" value="YES"/>
+                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
+                        <integer key="value" value="2"/>
+                    </userDefinedRuntimeAttribute>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
