@@ -11,6 +11,10 @@ class logInViewController: UIViewController {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passField: UITextField!
+    
+    @IBOutlet weak var logButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     var loginDic:[String:Any] = [:]
     let usrDef:UserDefaults = UserDefaults.standard
     override func viewDidLoad() {
@@ -32,15 +36,23 @@ class logInViewController: UIViewController {
                 passField.leftView = paddingView2
                 passField.leftViewMode = UITextField.ViewMode.always
         
-        
+                indicator.isHidden=true
+                indicator.stopAnimating()
 
         // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        logButton.isEnabled = true
     }
     
 
     @IBAction func logInButton(_ sender: Any)
     {
        //validateFields()
+        registerButton.isEnabled = false
+        logButton.isEnabled = false
+        indicator.isHidden=false
+        indicator.startAnimating()
         let email = emailField.text!
         let password = passField.text!
         let logData = Login(email: email, password: password)
@@ -62,11 +74,28 @@ class logInViewController: UIViewController {
                     self.usrDef.set(email  , forKey: "email")
                     self.usrDef.set(password, forKey: "password")
                      DispatchQueue.main.async {
+                         self.registerButton.isEnabled = true
+                         self.indicator.isHidden=true
+                         self.indicator.stopAnimating()
                     let issCon:ViewController = self.storyboard?.instantiateViewController(identifier: "issued_screen") as! ViewController
                      self.navigationController?.pushViewController(issCon, animated: true)
                      
                      
                      }
+                }
+                else{
+                    DispatchQueue.main.async
+                    {
+                        let message = self.loginDic["message"] as! String
+                         self.openAlert(title: "Alert", message: "\(message)", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default], actions: [{ _ in
+                        print("Okay clicked!")
+                    }])
+                        self.logButton.isEnabled = true
+                        self.indicator.stopAnimating()
+                        self.indicator.isHidden = true
+                        self.registerButton.isEnabled = true
+                    }
+
                 }
             }
         }
@@ -92,5 +121,9 @@ class logInViewController: UIViewController {
                     }])
                 }
     }
-  
+    
+    @IBAction func registerAction(_ sender: Any) {
+        logButton.isEnabled = false
+    }
+    
 }

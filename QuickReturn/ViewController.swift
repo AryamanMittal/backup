@@ -9,11 +9,14 @@ import UIKit
 import Alamofire
 class ViewController: UIViewController ,UITableViewDataSource,UISearchBarDelegate{
     
+    @IBOutlet weak var fineLabel: UILabel!
     @IBOutlet weak var issuedBooksTable: UITableView!
     var bookCat:[BookCategory] = []
     var allbook:[Allbook]=[]
-    
+    var fineDic:[String:Any] = [:]
+    var daystoDueDate = 0
     override func viewDidLoad() {
+        fineLabel.text! = ""
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let searchBar = UISearchBar()
@@ -22,6 +25,7 @@ class ViewController: UIViewController ,UITableViewDataSource,UISearchBarDelegat
                navigationItem.titleView = searchBar
         
         getIssuedBooks()
+        prepareNotification()
         issuedBooksTable.dataSource = self
         //issuedBooksTable.delegate = self
         let nib  = UINib(nibName: "issuedCell", bundle: nil)
@@ -40,12 +44,14 @@ class ViewController: UIViewController ,UITableViewDataSource,UISearchBarDelegat
        cell.indexPth = indexPath
         cell.issCon = self
         if let issueDate=formattingTimeZone(dateString: allbook[indexPath.row].issueDate){
-            cell.IssueDateLabel.text! = "Issued On: " + issueDate
+            cell.IssueDateLabel.text! = "Issued On : " + issueDate
         }
         if let returnDate = formattingTimeZone(dateString: allbook[indexPath.row].deadline){
             
             cell.returnLabel.text! = "Return by : " + returnDate
-            
+            if(indexPath.row == 0){
+                daystoDueDate = daysBetweenCurrentDateAndDateString(dateString: returnDate)!
+            }
             cell.daysLeftLabel.text! = "Days left - \(daysBetweenCurrentDateAndDateString(dateString: returnDate)!)"
         }
         cell.bookLabel.text! = bookCat[indexPath.row].name
@@ -93,7 +99,68 @@ class ViewController: UIViewController ,UITableViewDataSource,UISearchBarDelegat
         }
     }
     
+    @IBAction func calcFineAction(_ sender: Any) {
+        AF.request("https://arcanists-04-3jz1.onrender.com/api/v1/getfine", method: .get).response {
+            (responseObj:AFDataResponse<Data?>)
+            in
+            if(responseObj.data != nil)
+            {
+                do{
+                    guard let data = responseObj.data else {
+                        print(String(describing: responseObj.error))
+                        return
+                      }
+                    self.fineDic = try JSONSerialization.jsonObject(with: responseObj.data!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! [String:Any]
+                    if(self.fineDic["success"] as! Bool){
+                        DispatchQueue.main.async {
+                            self.fineLabel.text! = "Rs. " + String(self.fineDic["data"] as! Int)
+                        }
+                    }
+                    
+                }
+                catch{
+                        print("Error in json parsing ", error)
+                    
+                }
+            }
+        
+        }
 
+    }
+    func prepareNotification(){
+        
+        let center = UNUserNotificationCenter.current()
+            
+            // Define the notification content
+        
+        if(daystoDueDate < 15){
+            let content = UNMutableNotificationContent()
+            content.title = "Daily Reminder"
+            content.subtitle = "Library book due in \(daystoDueDate) days"
+            content.body = "Don't forget to return your library book!"
+            
+            
+            var dateComponents = DateComponents()
+            dateComponents.hour = 11 // Change this to the desired hour (24-hour format)
+            dateComponents.minute = 42 // Change this to the desired minute
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+            
+            // Create a unique identifier for the notification
+            let identifier = "dailyReminderNotification"
+            
+            // Create the notification request
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            
+            // Schedule the notification
+            center.add(request) { error in
+                if let error = error {
+                    print("Error scheduling notification: \(error)")
+                } else {
+                    print("Daily notification scheduled successfully.")
+                }
+            }
+        }
+    }
     func getIssuedBooks(){
      
             let strURL:String = "https://arcanists-04-3jz1.onrender.com/api/v1/getissuedbooks"
