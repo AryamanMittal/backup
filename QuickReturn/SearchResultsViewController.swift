@@ -12,12 +12,14 @@ class SearchResultsViewController: UIViewController,UITableViewDataSource,UITabB
     var book:[Datum] = []
     @IBOutlet weak var searchTableView: UITableView!
 
-
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTableView.dataSource = self
         searchTableView.delegate = self
         self.navigationItem.title = "Results"
+        indicator.startAnimating()
         getIssueBooks()
         let rightBarButton = UIBarButtonItem(title: "All Books", style: .plain, target: self, action: #selector(rightBarButtonTapped))
         navigationItem.rightBarButtonItem = rightBarButton
@@ -57,15 +59,17 @@ class SearchResultsViewController: UIViewController,UITableViewDataSource,UITabB
                       }
                     let bookData = try JSONDecoder().decode(Search.self, from: data)
                     if(bookData.success){
-                        self.book = bookData.data
+                        self.book = bookData.data!
                         print(self.book)
                         DispatchQueue.main.async {
+                            self.indicator.stopAnimating()
                             self.searchTableView.reloadData()
                         }
                     }else{
                         self.openAlert(title: "Alert", message: "\(bookData.message)", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [UIAlertAction.Style.default], actions: [{ _ in
                             print("Okay clicked!")
                         }])
+                        self.indicator.stopAnimating()
                     }
                 }
                 catch{

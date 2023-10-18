@@ -84,6 +84,7 @@ class registerViewController: UIViewController {
                                             self.openAlert(title: "\(message)", message: " ", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default], actions: [{ _ in
                                             print("Okay clicked!")
                                         }])
+                                            self.registerButton.isEnabled = true
                                     }
 
                                         

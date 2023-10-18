@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 class allBooksView: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var allBookTableView: UITableView!
     
     var books:[Books] = []
@@ -17,6 +18,7 @@ class allBooksView: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
 
         // Do any additional setup after loading the view.
+        indicator.startAnimating()
         let uinib = UINib(nibName: "booksCell", bundle: nil)
         allBookTableView.register(uinib, forCellReuseIdentifier: "booksCell")
         allBookTableView.dataSource = self
@@ -57,6 +59,7 @@ class allBooksView: UIViewController,UITableViewDelegate,UITableViewDataSource {
                     let booksData = try JSONDecoder().decode(AllBooks.self, from: data)
                     self.books = booksData.data
                     DispatchQueue.main.async {
+                        self.indicator.stopAnimating()
                         self.allBookTableView.reloadData()
                     }
                 }
