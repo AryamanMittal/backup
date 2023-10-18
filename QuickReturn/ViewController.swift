@@ -9,6 +9,8 @@ import UIKit
 import Alamofire
 class ViewController: UIViewController ,UITableViewDataSource,UISearchBarDelegate{
     
+    @IBOutlet weak var noIssuedLabel: UILabel!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var fineLabel: UILabel!
     @IBOutlet weak var issuedBooksTable: UITableView!
     var bookCat:[BookCategory] = []
@@ -17,13 +19,15 @@ class ViewController: UIViewController ,UITableViewDataSource,UISearchBarDelegat
     var daystoDueDate = 0
     override func viewDidLoad() {
         fineLabel.text! = ""
+        noIssuedLabel.text! = ""
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let searchBar = UISearchBar()
                searchBar.delegate = self
                searchBar.placeholder = "Search Books"
                navigationItem.titleView = searchBar
-        
+        indicatorView.startAnimating()
+        indicatorView.isHidden = false
         getIssuedBooks()
         prepareNotification()
         issuedBooksTable.dataSource = self
@@ -36,6 +40,12 @@ class ViewController: UIViewController ,UITableViewDataSource,UISearchBarDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(bookCat.count == 0){
+            noIssuedLabel.text! = "Sorry, no books currently issued."
+
+        }else{
+            noIssuedLabel.text! = ""
+        }
         return bookCat.count
     }
     
@@ -178,12 +188,17 @@ class ViewController: UIViewController ,UITableViewDataSource,UISearchBarDelegat
                           }
                         let allBooksData = try JSONDecoder().decode(IssuedBooks.self, from: data)
                         print(allBooksData)
-                        if(allBooksData.success){
+                        if(allBooksData.success)
+                        {
                             self.bookCat = allBooksData.bookCategories
                             self.allbook = allBooksData.allBooks
-                        }
-                        DispatchQueue.main.async {
-                            self.issuedBooksTable.reloadData()
+                            
+                            DispatchQueue.main.async
+                            {
+                                self.indicatorView.stopAnimating()
+                                self.indicatorView.isHidden = true
+                                self.issuedBooksTable.reloadData()
+                            }
                         }
                     }
                     catch{

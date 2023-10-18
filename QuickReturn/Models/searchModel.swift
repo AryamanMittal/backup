@@ -15,10 +15,10 @@ class Searchname: Codable {
 }
 class Search: Codable {
     let success: Bool
-    let data: [Datum]
+    let data: [Datum]?
     let message: String
 
-    init(success: Bool, data: [Datum], message: String) {
+    init(success: Bool, data: [Datum]?, message: String) {
         self.success = success
         self.data = data
         self.message = message

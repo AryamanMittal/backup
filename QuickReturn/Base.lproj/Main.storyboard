@@ -24,7 +24,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ao3-OT-dah">
-                                <rect key="frame" x="46.666666666666657" y="502.66666666666674" width="300" height="35"/>
+                                <rect key="frame" x="84" y="502.66666666666674" width="225" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Done">
                                     <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
@@ -40,8 +40,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Ao3-OT-dah" firstAttribute="centerX" secondItem="jeW-as-SYi" secondAttribute="centerX" id="4Je-XS-f0T"/>
-                            <constraint firstItem="Ao3-OT-dah" firstAttribute="width" secondItem="jeW-as-SYi" secondAttribute="width" id="4e0-ep-xqt"/>
                             <constraint firstItem="jeW-as-SYi" firstAttribute="centerX" secondItem="jqS-3D-9uM" secondAttribute="centerX" id="PoA-ff-BKc"/>
+                            <constraint firstItem="Ao3-OT-dah" firstAttribute="width" secondItem="jeW-as-SYi" secondAttribute="width" multiplier="0.75" id="VtT-xr-eGR"/>
                             <constraint firstItem="Ao3-OT-dah" firstAttribute="top" secondItem="jeW-as-SYi" secondAttribute="bottom" constant="80" id="n3W-fL-e3l"/>
                             <constraint firstItem="jeW-as-SYi" firstAttribute="top" secondItem="FUR-5U-cnf" secondAttribute="top" constant="63.670000000000002" id="z8e-Ng-svY"/>
                         </constraints>
@@ -67,17 +67,24 @@
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="OpT-zB-qi8">
+                                <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                                <color key="color" red="0.47843140360000003" green="0.2588235438" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qL0-Vf-PpG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Um1-js-RYa" firstAttribute="top" secondItem="qL0-Vf-PpG" secondAttribute="top" id="1Tb-GU-lZF"/>
+                            <constraint firstItem="OpT-zB-qi8" firstAttribute="centerY" secondItem="amk-n4-U5b" secondAttribute="centerY" id="HNT-ri-Mhm"/>
                             <constraint firstItem="Um1-js-RYa" firstAttribute="leading" secondItem="qL0-Vf-PpG" secondAttribute="leading" id="WN8-WD-hIa"/>
+                            <constraint firstItem="OpT-zB-qi8" firstAttribute="centerX" secondItem="amk-n4-U5b" secondAttribute="centerX" id="Z7N-Vo-kAJ"/>
                             <constraint firstItem="Um1-js-RYa" firstAttribute="bottom" secondItem="qL0-Vf-PpG" secondAttribute="bottom" id="aEG-Fu-bIc"/>
                             <constraint firstItem="qL0-Vf-PpG" firstAttribute="trailing" secondItem="Um1-js-RYa" secondAttribute="trailing" id="x04-gP-wzG"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="indicator" destination="OpT-zB-qi8" id="4vF-La-Day"/>
                         <outlet property="searchTableView" destination="Um1-js-RYa" id="iLC-Ya-5M0"/>
                     </connections>
                 </viewController>
@@ -101,12 +108,12 @@
                                 <rect key="frame" x="0.0" y="638" width="393" height="180"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKg-yX-1dz">
-                                        <rect key="frame" x="118.33333333333333" y="68" width="156.66666666666669" height="38"/>
+                                        <rect key="frame" x="120.00000000000001" y="68" width="153.33333333333337" height="38"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Calculate Fine">
-                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
-                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <color key="baseBackgroundColor" red="0.92941176889999999" green="0.43921568989999998" blue="0.4196078479" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="baseBackgroundColor" red="0.68074820400000002" green="0.92896058329999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="calcFineAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Il2-7L-tcr"/>
@@ -132,14 +139,30 @@
                                     <constraint firstAttribute="height" constant="180" id="pEa-Ko-KfG"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="gFs-0u-mox">
+                                <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                                <color key="color" red="0.47843140360000003" green="0.2588235438" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, no books currently issued." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWV-7Z-MLj">
+                                <rect key="frame" x="10" y="385.33333333333331" width="373" height="81.333333333333314"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="HTw-aX-yxx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="62k-ac-bfc"/>
+                            <constraint firstItem="gFs-0u-mox" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7R0-6V-WTL"/>
+                            <constraint firstItem="iWV-7Z-MLj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9P2-VN-vFN"/>
+                            <constraint firstItem="iWV-7Z-MLj" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="OBs-Jh-PV9"/>
                             <constraint firstItem="vna-TR-zE1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QUN-am-l9r"/>
+                            <constraint firstItem="iWV-7Z-MLj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="Y2V-vf-XVV"/>
                             <constraint firstItem="HTw-aX-yxx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="dEV-ee-1h1"/>
                             <constraint firstItem="vna-TR-zE1" firstAttribute="top" secondItem="HTw-aX-yxx" secondAttribute="bottom" id="gvm-kw-uRu"/>
+                            <constraint firstItem="gFs-0u-mox" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="itd-Xl-91N"/>
+                            <constraint firstAttribute="trailing" secondItem="iWV-7Z-MLj" secondAttribute="trailing" constant="10" id="jeX-N8-9xH"/>
                             <constraint firstItem="HTw-aX-yxx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kR2-0k-4FJ"/>
                             <constraint firstAttribute="bottom" secondItem="vna-TR-zE1" secondAttribute="bottom" constant="34" id="tVR-TM-twD"/>
                             <constraint firstItem="vna-TR-zE1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yie-v3-4tK"/>
@@ -148,12 +171,14 @@
                     <navigationItem key="navigationItem" title="Issued Books" id="D9c-jw-IWr"/>
                     <connections>
                         <outlet property="fineLabel" destination="KHg-ii-T0O" id="79n-Q7-Gas"/>
+                        <outlet property="indicatorView" destination="gFs-0u-mox" id="wpo-tc-rbf"/>
                         <outlet property="issuedBooksTable" destination="HTw-aX-yxx" id="VE5-rW-WOy"/>
+                        <outlet property="noIssuedLabel" destination="iWV-7Z-MLj" id="ZuM-gf-DSt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2164.6153846153848" y="-225.35545023696682"/>
+            <point key="canvasLocation" x="2164.1221374045799" y="-226.05633802816902"/>
         </scene>
         <!--All Books-->
         <scene sceneID="iHB-2b-RWW">
@@ -167,24 +192,31 @@
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hJ9-Nz-t78">
+                                <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                                <color key="color" red="0.47843140360000003" green="0.2588235438" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cgz-y7-sUz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="hJ9-Nz-t78" firstAttribute="centerX" secondItem="KYV-sO-haA" secondAttribute="centerX" id="1lw-XO-ciB"/>
                             <constraint firstItem="9q3-d1-48X" firstAttribute="bottom" secondItem="cgz-y7-sUz" secondAttribute="bottom" id="9kV-FP-ygE"/>
                             <constraint firstItem="9q3-d1-48X" firstAttribute="top" secondItem="cgz-y7-sUz" secondAttribute="top" id="QUE-pb-ifW"/>
                             <constraint firstItem="9q3-d1-48X" firstAttribute="leading" secondItem="cgz-y7-sUz" secondAttribute="leading" id="cTR-px-I87"/>
                             <constraint firstItem="cgz-y7-sUz" firstAttribute="trailing" secondItem="9q3-d1-48X" secondAttribute="trailing" id="oyb-SI-kw6"/>
+                            <constraint firstItem="hJ9-Nz-t78" firstAttribute="centerY" secondItem="KYV-sO-haA" secondAttribute="centerY" id="pP2-oo-VfC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="All Books" id="SEW-2p-BHs"/>
                     <connections>
                         <outlet property="allBookTableView" destination="9q3-d1-48X" id="EFn-2d-G61"/>
+                        <outlet property="indicator" destination="hJ9-Nz-t78" id="bzi-un-sag"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tXn-3m-YUZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3437" y="-535"/>
+            <point key="canvasLocation" x="3435.8778625954196" y="-535.21126760563379"/>
         </scene>
         <!--Log In View Controller-->
         <scene sceneID="leu-Rn-fwt">

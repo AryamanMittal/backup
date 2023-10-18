@@ -67,6 +67,8 @@ class emailValidView: UIViewController {
                                 DispatchQueue.main.async
                                 {
                                     self.sendOtpButton.isEnabled = true
+                                    self.activityIndi.isHidden = true
+                                    self.activityIndi.stopAnimating()
 //                                    self.openAlert(title: "Enter A Valid Mail", message: "", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default] , actions: [{ _ in
 //                                        print("Okay Clicked")
 //                                    }])
@@ -82,6 +84,9 @@ class emailValidView: UIViewController {
             }else{
                 openAlert(title: "Enter A Valid Mail", message: "", alertStyle: .alert, actionTitles: ["Okay"], actionStyles: [.default] , actions: [{ _ in
                     print("Okay Clicked")
+                    self.sendOtpButton.isEnabled = true
+                    self.activityIndi.isHidden = true
+                    self.activityIndi.stopAnimating()
                 }])
             }
         }
